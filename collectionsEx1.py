@@ -13,13 +13,19 @@ data = [["AZS413", 17.546, 14.156],
         ["LCY476", 10.451, 16.467]]
 
 carsLastPosition = dict()
-carsMovementCount = dict() # ...
-for elements in data:
-    plateNumber = elements[0]
-    lat = elements[1]
-    lng = elements[2]
+for carData in data:
+    plateNumber = carData[0]
+    lat = carData[1]
+    lng = carData[2]
 
     if plateNumber in carsLastPosition:
-        print(plateNumber + " already exists in carsPositions.")
+        coordinatesPair = carsLastPosition[plateNumber]
+        lastLat = coordinatesPair[0]
+        lastLng = coordinatesPair[1]
 
-    carsLastPosition[plateNumber] = [lat, lng]
+        if lat != lastLat or lng != lastLng:
+            print("Car with plate number " + plateNumber + " has moved.")
+
+        carsLastPosition[plateNumber] = [lastLat, lastLng]
+    else:
+        carsLastPosition[plateNumber] = [lat, lng]
